@@ -1,6 +1,6 @@
 # Fitness profiles and heart rate zones
 
-The heart rate zone model and the three fixed fitness profiles that set each zone's bpm range. How profiles are chosen and shown is in [app-architecture.md](app-architecture.md#screens-and-menu). How workouts use zones belongs to the workout spec, which isn't written yet.
+The heart rate zone model and the three fixed fitness profiles that set each zone's bpm range. How profiles are chosen and shown is in [app-architecture.md](app-architecture.md#screens-and-menu). How workouts use zones is in [workouts.md](workouts.md).
 
 Decided in [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md).
 

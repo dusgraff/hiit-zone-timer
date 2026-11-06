@@ -65,7 +65,33 @@
 
     <section id="screen-select-workout" class="screen" data-screen="select-workout" hidden>
       <h1>Select workout</h1>
-      <p class="muted">Not implemented.</p>
+      <div id="workout-list" class="choice-list"></div>
+    </section>
+
+    <section id="screen-workout" class="screen" data-screen="workout" hidden>
+      <div class="progress" aria-hidden="true">
+        <div id="progress-segments" class="progress-segments"></div>
+        <div id="progress-dot" class="progress-dot"></div>
+      </div>
+
+      <div id="workout-running">
+        <p id="workout-name" class="muted"></p>
+        <p id="workout-phase" class="phase"></p>
+        <p id="workout-timer" class="workout-timer">0:00</p>
+        <p class="workout-hr"><span id="workout-bpm">--</span> <span class="muted">bpm</span></p>
+        <p id="workout-zone" class="zone"></p>
+        <p id="workout-target" class="muted"></p>
+        <p id="workout-state" class="workout-state"></p>
+      </div>
+
+      <div id="workout-complete" hidden>
+        <h1>Workout complete</h1>
+        <p class="muted">Total time</p>
+        <p id="workout-total" class="workout-timer"></p>
+      </div>
+      <div class="screen-footer">
+        <button id="workout-done-button" class="primary" hidden>Select workout</button>
+      </div>
     </section>
   </main>
 </body>

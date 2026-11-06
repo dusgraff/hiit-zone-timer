@@ -56,9 +56,10 @@ export function setUpProfileScreen() {
     footer.hidden = false;
   }
 
-  // Every arrival on the screen starts from the list.
-  window.addEventListener('hashchange', () => {
-    if (location.hash === '#profile') showList();
+  // Every arrival on the screen starts from the list, including redirects here
+  // from Select workout (which don't fire hashchange).
+  window.addEventListener('screenchange', ({ detail: { name } }) => {
+    if (name === 'profile') showList();
   });
   // Choosing Select profile in the menu while already on it doesn't change the
   // hash, so handle that click directly.

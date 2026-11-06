@@ -1,8 +1,8 @@
 # App architecture
 
-How the app is built, hosted and laid out: the single page, its screens and navigation, the Bluetooth connection, screen sleep, data and storage. What happens inside a workout is for the workout spec, which isn't written yet.
+How the app is built, hosted and laid out: the single page, its screens and navigation, the Bluetooth connection, screen sleep, data and storage. What happens inside a workout is in [workouts.md](workouts.md).
 
-Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md), with the guided flow and the Monitor and Select profile screens updated by [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md).
+Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md), with the guided flow and the Monitor and Select profile screens updated by [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md), and screens while disconnected and the workout screens updated by [ADR 2026-11-06-e](../specs-ADRs/archive/2026/11/2026-11-06-e-running-a-workout.md).
 
 ## Hosting and folder layout
 
@@ -35,13 +35,13 @@ A menu bar at the top shows the app name, the version number and a hamburger men
 |---|---|---|
 | Monitor | Yes | Connection and live heart rate. With no device connected: a Connect button that opens the device picker. Once connected: connection status, live heart rate and stats, a Disconnect button, and a **Select profile** button at the bottom. Also shows the active profile (or that none is selected) and, once a profile is selected, the current zone with its name, for example "Zone 4 — Hard" or "Zone 0 — Resting" ([profiles](profiles.md)). |
 | Select profile | Yes | Lists the three profiles as buttons, with the active one highlighted. Tapping one selects it and shows its zone bpm ranges, with a **Select workout** button below. Opening the screen again from the menu returns to the list of buttons; that's how the profile is changed. |
-| Select workout | Yes | Choose a pre-programmed workout. |
-| Running workout | No | The workout in progress. Opened by choosing a workout. |
+| Select workout | Yes | Lists the pre-programmed workouts as buttons; tapping one starts it. Opens only when connected with a profile selected; otherwise the app goes to Monitor or Select profile ([workouts](workouts.md#select-workout-screen)). |
+| Running workout | No | The workout in progress: progress bar, phase timer, heart rate and target, timer state, then the end screen ([workouts](workouts.md#running-workout-screen)). Opened by choosing a workout. |
 
 - **The app opens on Monitor,** and returns to it when a connection is lost (see [Dropped connection](#dropped-connection)).
 - **Guided flow.** A normal session never needs the menu: connect on Monitor and tap **Select profile**; choose a profile, check its zones and tap **Select workout**; choosing a workout opens the running workout and starts it.
-- **Screens while disconnected.** Select profile and Select workout can be opened without a connection. Choosing a workout needs one; without it, the app goes to Monitor instead of starting the workout.
-- **Not yet specified:** what each screen shows in detail, and what happens when the user leaves the running workout mid-workout.
+- **Screens while disconnected.** Select profile can be opened without a connection. Select workout can't: without a connection the app goes to Monitor, and without a profile to Select profile.
+- **Leaving a running workout** for any other screen ends it ([workouts](workouts.md#leaving-and-returning)).
 
 ## Bluetooth connection
 
@@ -52,7 +52,7 @@ A menu bar at the top shows the app name, the version number and a hamburger men
 
 This applies whenever a connected strap drops, on any screen, whether or not a workout is running:
 
-1. Heart rate stops arriving. If a workout is running, how each of its phases handles that belongs to the workout spec.
+1. Heart rate stops arriving. If a workout is running, its timer pauses (except in the cool-down) with no alarm ([workouts](workouts.md#no-heart-rate)); if the connection is lost for good, the workout ends.
 2. The app makes **one** automatic attempt to reconnect to the same device. No picker is needed while the page is still loaded.
 3. During the attempt, the app stays on the current screen and shows that it's reconnecting.
 4. The app sets no timeout of its own; the browser's standard Bluetooth connection timeout applies.

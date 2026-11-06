@@ -137,3 +137,58 @@ button.primary { background: #d33; }
 button.secondary { background: #444; }
 .screen-footer button.primary { width: 100%; max-width: 24rem; }
 button:disabled { opacity: 0.4; }
+
+/* Running workout */
+
+.progress {
+  position: relative;
+  width: 100%;
+  margin: 0.25rem 0 1rem;
+}
+
+.progress-segments {
+  display: flex;
+  gap: 2px;
+  height: 0.9rem;
+  border-radius: 0.45rem;
+  overflow: hidden;
+}
+
+.segment { flex-basis: 0; }
+.segment.warmup, .segment.cooldown { background: #6cc6ec; }
+.segment.work { background: #d33; }
+.segment.recovery { background: #e8c21a; }
+
+.progress-dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #111;
+  transform: translate(-50%, -50%);
+}
+
+#workout-name { margin: 0; }
+
+.phase { font-size: 1.8rem; font-weight: bold; margin: 0.5rem 0 0; }
+.phase.warmup, .phase.cooldown { color: #6cc6ec; }
+.phase.work { color: #f55; }
+.phase.recovery { color: #e8c21a; }
+
+.workout-timer {
+  font-size: 6rem;
+  font-weight: bold;
+  margin: 0.25rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.workout-timer.stopped { color: #777; }
+
+.workout-hr { font-size: 2.2rem; font-weight: bold; margin: 0.5rem 0 0; }
+
+.workout-state { font-size: 1.3rem; font-weight: bold; min-height: 1.6em; margin: 0.75rem 0; }
+.workout-state.waiting, .workout-state.no-hr { color: #e8c21a; }
+.workout-state.paused { color: #f55; }
+.workout-state.below { color: #6cc6ec; }
