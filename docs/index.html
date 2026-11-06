@@ -34,6 +34,8 @@
         <p id="monitor-device" class="muted"></p>
         <p id="monitor-bpm" class="bpm">--</p>
         <p class="muted">bpm</p>
+        <p id="monitor-zone" class="zone" hidden></p>
+        <p id="monitor-profile" class="muted">No profile selected</p>
         <p id="monitor-detail" class="muted"></p>
         <button id="disconnect-button" class="secondary">Disconnect</button>
       </div>
@@ -45,7 +47,20 @@
 
     <section id="screen-profile" class="screen" data-screen="profile" hidden>
       <h1>Select profile</h1>
-      <p class="muted">Not implemented.</p>
+
+      <div id="profile-list" class="choice-list"></div>
+
+      <div id="profile-detail" hidden>
+        <h2 id="profile-name"></h2>
+        <table class="zones">
+          <thead><tr><th>Zone</th><th>bpm</th></tr></thead>
+          <tbody id="profile-zones"></tbody>
+        </table>
+      </div>
+
+      <div id="profile-footer" class="screen-footer" hidden>
+        <button id="select-workout-button" class="primary">Select workout</button>
+      </div>
     </section>
 
     <section id="screen-select-workout" class="screen" data-screen="select-workout" hidden>

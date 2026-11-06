@@ -2,7 +2,7 @@
 
 How the app is built, hosted and laid out: the single page, its screens and navigation, the Bluetooth connection, screen sleep, data and storage. What happens inside a workout is for the workout spec, which isn't written yet.
 
-Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md).
+Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md), with the guided flow and the Monitor and Select profile screens updated by [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md).
 
 ## Hosting and folder layout
 
@@ -33,13 +33,13 @@ A menu bar at the top shows the app name, the version number and a hamburger men
 
 | Screen | In the menu | What it does |
 |---|---|---|
-| Monitor | Yes | Connection and live heart rate. With no device connected: a Connect button that opens the device picker. Once connected: connection status, live heart rate and stats, a Disconnect button, and a **Select profile** button at the bottom. |
-| Select profile | Yes | Choose a fitness profile. |
+| Monitor | Yes | Connection and live heart rate. With no device connected: a Connect button that opens the device picker. Once connected: connection status, live heart rate and stats, a Disconnect button, and a **Select profile** button at the bottom. Also shows the active profile (or that none is selected) and, once a profile is selected, the current zone with its name, for example "Zone 4 — Hard" or "Zone 0 — Resting" ([profiles](profiles.md)). |
+| Select profile | Yes | Lists the three profiles as buttons, with the active one highlighted. Tapping one selects it and shows its zone bpm ranges, with a **Select workout** button below. Opening the screen again from the menu returns to the list of buttons; that's how the profile is changed. |
 | Select workout | Yes | Choose a pre-programmed workout. |
 | Running workout | No | The workout in progress. Opened by choosing a workout. |
 
 - **The app opens on Monitor,** and returns to it when a connection is lost (see [Dropped connection](#dropped-connection)).
-- **Guided flow.** A normal session never needs the menu: connect on Monitor and tap **Select profile**; choosing a profile goes straight to Select workout; choosing a workout opens the running workout and starts it.
+- **Guided flow.** A normal session never needs the menu: connect on Monitor and tap **Select profile**; choose a profile, check its zones and tap **Select workout**; choosing a workout opens the running workout and starts it.
 - **Screens while disconnected.** Select profile and Select workout can be opened without a connection. Choosing a workout needs one; without it, the app goes to Monitor instead of starting the workout.
 - **Not yet specified:** what each screen shows in detail, and what happens when the user leaves the running workout mid-workout.
 
@@ -67,7 +67,7 @@ Tapping **Disconnect** just disconnects, with no reconnect attempt.
 
 ## Data and storage
 
-- **Profiles and workouts are pre-programmed** as data in JS modules in `docs/`. Planned profiles are sedentary, average and athletic; a profile sets the heart rate zones. Changing either means editing those files and pushing. There's no in-app editor.
+- **Profiles and workouts are pre-programmed** as data in JS modules in `docs/`. Profiles are Sedentary, Average and Athletic, each setting the heart rate zones (see [profiles.md](profiles.md)). Changing either means editing those files and pushing. There's no in-app editor.
 - **Selecting a workout starts it.** There's no separate start step.
 - **Nothing is stored in the browser.** No `localStorage`, IndexedDB, cookies or other storage. The selected profile and workout progress exist only in the page's memory.
 

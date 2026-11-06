@@ -94,7 +94,7 @@ During a workout the phone sits untouched for long stretches. If the screen turn
 - None.
 
 ### Superseded by
-- None.
+- [2026-11-06-d](2026-11-06-d-fitness-profiles.md) — guided flow step 2 only (choosing a profile shows its zones and a Select workout button, instead of going straight to Select workout), as of 2026-11-06.
 
 ## Loose ends
 

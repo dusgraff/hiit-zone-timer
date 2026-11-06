@@ -1,8 +1,11 @@
-// Monitor screen: connect, connection status, live heart rate, disconnect,
-// and the Select profile button that starts the guided flow once connected.
+// Monitor screen: connect, connection status, live heart rate, current zone
+// and active profile, disconnect, and the Select profile button that starts
+// the guided flow once connected.
 
 import { heartRate, STATE } from './bluetooth.js';
 import { goTo } from './router.js';
+import { session, currentProfile } from './session.js';
+import { zoneFor, zoneLabel } from './profiles.js';
 
 export function setUpMonitor() {
   const el = (id) => document.getElementById(id);
@@ -16,8 +19,20 @@ export function setUpMonitor() {
   const bpmEl = el('monitor-bpm');
   const detailEl = el('monitor-detail');
   const errorEl = el('monitor-error');
+  const zoneEl = el('monitor-zone');
+  const profileEl = el('monitor-profile');
 
   let battery = null;
+  let lastBpm = null;
+
+  // Zone line only once a profile is selected and a reading has arrived.
+  function showZoneAndProfile() {
+    const profile = currentProfile();
+    profileEl.textContent = profile ? 'Profile: ' + profile.name : 'No profile selected';
+    zoneEl.hidden = !profile || lastBpm === null;
+    if (!zoneEl.hidden) zoneEl.textContent = zoneLabel(zoneFor(profile, lastBpm));
+  }
+  session.addEventListener('profilechange', showZoneAndProfile);
 
   if (!heartRate.supported) {
     connectButton.disabled = true;
@@ -67,6 +82,8 @@ export function setUpMonitor() {
         break;
       case STATE.DISCONNECTED:
         battery = null;
+        lastBpm = null;
+        showZoneAndProfile();
         bpmEl.textContent = '--';
         detailEl.textContent = '';
         statusEl.textContent =
@@ -79,6 +96,8 @@ export function setUpMonitor() {
 
   heartRate.addEventListener('reading', ({ detail: { bpm, contact, rr } }) => {
     bpmEl.textContent = bpm;
+    lastBpm = bpm;
+    showZoneAndProfile();
     const parts = [];
     if (contact !== null) parts.push('Skin contact: ' + (contact ? 'yes' : 'no'));
     if (rr.length) parts.push('RR: ' + rr.join(', ') + ' ms');

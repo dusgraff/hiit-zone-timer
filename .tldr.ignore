@@ -1,2 +1,4 @@
 # Items the TLDR tree skips entirely (.gitignore syntax). See .tldr.rules.md rule 9.
 .git/
+.vscode/
+.gitignore

@@ -1,0 +1,3 @@
+# Scratch space: ignore everything in temp/ except its CLAUDE.md (TLDR disabled marker).
+temp/*
+!temp/CLAUDE.md
