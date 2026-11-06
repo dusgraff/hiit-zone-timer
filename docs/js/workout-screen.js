@@ -6,7 +6,7 @@
 import { heartRate, STATE } from './bluetooth.js';
 import { goTo, setGuard } from './router.js';
 import { currentProfile } from './session.js';
-import { WORKOUTS, PHASE } from './workouts.js';
+import { WORKOUTS } from './workouts.js';
 import { WorkoutRun, STATUS } from './workout-engine.js';
 import { zoneFor, zoneLabel } from './profiles.js';
 import { playPhaseChange, playAlarm, playComplete } from './sounds.js';
@@ -60,6 +60,9 @@ export function setUpWorkoutScreens() {
   const bpmEl = el('workout-bpm');
   const zoneEl = el('workout-zone');
   const targetEl = el('workout-target');
+  const targetBpmEl = el('workout-target-bpm');
+  const hrFill = el('hr-fill');
+  const hrMarker = el('hr-marker');
   const stateEl = el('workout-state');
   const totalEl = el('workout-total');
   const doneButton = el('workout-done-button');
@@ -174,9 +177,13 @@ export function setUpWorkoutScreens() {
     timerEl.textContent = formatTime(run.remainingMs);
     bpmEl.textContent = bpm === null ? '--' : bpm;
     zoneEl.textContent = bpm === null || !profile ? '' : zoneLabel(zoneFor(profile, bpm));
-    targetEl.textContent =
-      (phase.kind === PHASE.COOLDOWN ? 'Target (shown only): Zone ' : 'Target: Zone ') +
-      phase.zone + ' · ' + phase.targetBpm + '+ bpm';
+    targetBpmEl.textContent = phase.targetBpm;
+    targetEl.textContent = 'Target: ' + zoneLabel(phase.zone);
+    // Heart rate bar: fixed scale (work target + 20%); the diamond marks this phase's target.
+    const scale = run.hrScaleBpm;
+    hrMarker.style.left = Math.min(1, phase.targetBpm / scale) * 100 + '%';
+    hrFill.style.width = (bpm === null ? 0 : Math.min(1, bpm / scale)) * 100 + '%';
+    hrFill.classList.toggle('above', bpm !== null && bpm >= phase.targetBpm);
 
     const status = run.status;
     stateEl.textContent =

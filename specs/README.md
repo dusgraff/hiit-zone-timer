@@ -1,6 +1,6 @@
 # Specs
 
-The authoritative description of the Heart Rate HIIT Pacer as it currently stands: what it does, how it's built, and how the project itself is run. If the specs and anything else disagree, the specs win. They change through the ADR process described below. Why each decision was made is recorded in the ADRs these specs link to.
+The authoritative description of HIIT Zone Timer as it currently stands: what it does, how it's built, and how the project itself is run. If the specs and anything else disagree, the specs win. They change through the ADR process described below. Why each decision was made is recorded in the ADRs these specs link to.
 
 ## The project
 

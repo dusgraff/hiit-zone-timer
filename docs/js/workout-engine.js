@@ -3,11 +3,12 @@
 // The screen calls tick() every ~100 ms with the current time and bpm (null
 // when there's no usable reading) and acts on the events it returns.
 
-import { buildPhases } from './workouts.js';
+import { buildPhases, PHASE } from './workouts.js';
 
 // Starting values, to be tuned on the bike.
-export const ALARM_GRACE_MS = 5000; // quiet at the start of a phase, until target is first reached
-export const ALARM_REPEAT_MS = 2000;
+export const WARMUP_QUIET_MS = 60000; // no alarm at all in the warm-up's first minute
+export const ALARM_GRACE_MS = 5000; // quiet at the start of other phases, until target is first reached
+export const ALARM_REPEAT_MS = 1000;
 export const CLIMB_WINDOW_MS = 5000; // climbing = smoothed bpm rose by CLIMB_MIN_BPM over this window
 export const CLIMB_MIN_BPM = 2;
 const SMOOTH_MS = 2000; // smoothing: mean of the readings in the last 2 s
@@ -30,6 +31,9 @@ export class WorkoutRun {
       ...p,
       targetBpm: profile.zoneMins[p.zone - 1],
     }));
+    // Heart rate bar scale: the work phase's target plus 20%, fixed for the workout.
+    const work = this.phases.find((p) => p.kind === PHASE.WORK);
+    this.hrScaleBpm = Math.round(work.targetBpm * 1.2);
     this.totalMs = this.phases.reduce((sum, p) => sum + p.duration * 1000, 0);
     this.startTime = now;
     this.endTime = null;
@@ -102,9 +106,11 @@ export class WorkoutRun {
       return events;
     }
 
-    // Below-target alarm: never in the cool-down, never without a reading.
+    // Below-target alarm: never in the cool-down, never without a reading,
+    // never in the warm-up's first minute.
+    const warmupQuiet = phase.kind === PHASE.WARMUP && now - this.phaseStart < WARMUP_QUIET_MS;
     let alarm = false;
-    if (phase.gated && bpm !== null && !atTarget) {
+    if (phase.gated && bpm !== null && !atTarget && !warmupQuiet) {
       alarm = this.reached || (now - this.phaseStart >= ALARM_GRACE_MS && !this.climbing(now));
     }
     if (!alarm) {

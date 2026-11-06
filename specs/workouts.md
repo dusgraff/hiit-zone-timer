@@ -47,7 +47,7 @@ The list, in order:
 
 | Workout | Mode | Work/recovery cycles |
 |---|---|---|
-| Demo | Moderate | 2 |
+| Demo | Moderate | 1 |
 | Moderate 5 min | Moderate | 5 |
 | Moderate 10 min | Moderate | 10 |
 | Moderate 15 min | Moderate | 15 |
@@ -75,7 +75,10 @@ From top to bottom:
 - **Progress bar** across the top, one segment per phase: light blue for warm-up and cool-down, red for work, yellow for recovery. Each segment's width is proportional to its phase's duration. A dot moves along the bar as counted time passes, so it stands still while the timer is paused.
 - **Phase and cycle,** for example "Work 3 of 10".
 - **Phase timer,** large: the time left in the phase.
-- **Heart rate:** live bpm, the current zone and the phase's target zone.
+- **Heart rate,** in three parts:
+  - **Current:** live bpm and the zone it's in, for example "128 bpm" and "Zone 3 — Moderate".
+  - **Heart rate bar,** on a fixed scale for the whole workout: the full bar is the work phase's target bpm plus 20% (for example 132 → 158). A green diamond marks the current phase's target and moves when the phase changes. The fill runs from the left edge to the current heart rate, capped at the full bar: red below the diamond, green at or above it.
+  - **Target:** the phase's target in the same format, for example "132 bpm" and "Zone 4 — Hard".
 - **Timer state,** shown when it applies:
   - "Waiting for Zone 4" (with the phase's target zone) before heart rate first reaches the target in a phase.
   - "Paused — below target" after it drops back out.
@@ -104,12 +107,13 @@ Cues let the user follow the workout without watching the screen. Sounds are gen
 
 The app keeps the last several seconds of heart rate readings, including those from just before the workout started, so it can tell whether heart rate is climbing. The alarm applies to every phase except the cool-down, which never sounds it, and never sounds while there's no reading.
 
-- **Before reaching the target in a phase** ("Waiting for …"): no alarm in the phase's first 5 s. After that, no alarm while heart rate is climbing toward the target; the alarm sounds only when it stalls or falls.
-- **After reaching the target, then dropping below it** ("Paused — below target"): the alarm sounds immediately, with no grace, whether or not heart rate is climbing. Recovery usually starts above its target, so this rule applies there from the first second.
-- **Repeat:** while the conditions hold, the alarm repeats every 2 s.
+- **Warm-up's first 60 s:** no alarm at all, whatever heart rate does, so there's time to start the workout and get on the bike. After that, the rules below apply.
+- **Before reaching the target in a phase** ("Waiting for …"): no alarm in the phase's first 5 s (60 s in the warm-up). After that, no alarm while heart rate is climbing toward the target; the alarm sounds only when it stalls or falls.
+- **After reaching the target, then dropping below it** ("Paused — below target"): the alarm sounds immediately (except in the warm-up's first 60 s), whether or not heart rate is climbing. Recovery usually starts above its target, so this rule applies there from the first second.
+- **Repeat:** while the conditions hold, the alarm repeats every 1 s.
 - **Climbing** means the smoothed heart rate rose by at least 2 bpm over the last 5 s, so normal 1–2 bpm jitter doesn't count.
 
-The 5 s grace, 2 s repeat and 2 bpm / 5 s climbing threshold are starting values, to be tuned on the bike.
+The 60 s and 5 s graces, 1 s repeat and 2 bpm / 5 s climbing threshold are starting values, to be tuned on the bike.
 
 ## Not included for now
 

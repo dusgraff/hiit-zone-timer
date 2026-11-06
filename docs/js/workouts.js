@@ -23,7 +23,7 @@ const MODES = {
 const workout = (id, name, mode, cycles) => ({ id, name, mode, cycles });
 
 export const WORKOUTS = [
-  workout('demo', 'Demo', 'moderate', 2),
+  workout('demo', 'Demo', 'moderate', 1),
   workout('moderate-5', 'Moderate 5 min', 'moderate', 5),
   workout('moderate-10', 'Moderate 10 min', 'moderate', 10),
   workout('moderate-15', 'Moderate 15 min', 'moderate', 15),

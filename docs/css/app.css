@@ -192,3 +192,37 @@ button:disabled { opacity: 0.4; }
 .workout-state.waiting, .workout-state.no-hr { color: #e8c21a; }
 .workout-state.paused { color: #f55; }
 .workout-state.below { color: #6cc6ec; }
+
+/* Heart rate bar: fixed scale, fill to current bpm, green diamond at the target */
+
+.hr-bar {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  height: 1.2rem;
+  margin: 0.9rem 0 0.4rem;
+  background: #2a2a2a;
+  border-radius: 0.3rem;
+}
+
+.hr-fill {
+  height: 100%;
+  width: 0;
+  background: #d33;
+  border-radius: 0.3rem;
+}
+.hr-fill.above { background: #2c2; }
+
+.hr-marker {
+  position: absolute;
+  top: 50%;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: #2c2;
+  border: 2px solid #111;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.zone.target { font-size: 1.1rem; color: #aaa; margin-top: 0; }
+
+#workout-running { width: 100%; display: flex; flex-direction: column; align-items: center; }

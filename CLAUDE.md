@@ -1,6 +1,6 @@
 @.tldr.rules.md
 
-# Heart Rate HIIT Pacer
+# HIIT Zone Timer
 
 A browser-based tool for pacing heart-rate-driven HIIT workouts. Detailed specs are still to be written; this is the general outline.
 

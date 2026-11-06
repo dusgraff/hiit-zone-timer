@@ -28,7 +28,7 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
 3. **Targets are zones, not bpm.** A phase names a zone (for example "Zone 4"). Its target is that zone's minimum bpm on the active profile. One workout definition then works on all three profiles, and switching profiles changes how hard it is.
 
 4. **Nine workouts, from the air-bike plan,** as data in one JS module, `docs/js/workouts.js` (as set by ADR 2026-11-06-c): a Demo, then two modes, each in four lengths.
-   - **Demo,** first in the list: warm-up, two work/recovery cycles (work, recovery, work, recovery) and cool-down, all at Moderate targets. It's for trying the app out quickly: the timers, cues and progress bar.
+   - **Demo,** first in the list: warm-up, one work/recovery cycle and cool-down, all at Moderate targets. It's for trying the app out quickly: the timers, cues and progress bar.
    - **Modes.** The plan gives each phase a zone range (warm-up and recovery Zone 1–2, work Zone 4–5). Moderate targets the low end of each range and Hard the high end:
 
      | Phase | Duration | Moderate target | Hard target |
@@ -52,7 +52,10 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
    - **Progress bar** across the top, with one segment per phase: light blue for warm-up and cool-down, red for work and yellow for recovery. Each segment's width is proportional to its phase's duration. A dot moves along the bar as counted time passes, so it stands still while the timer is paused.
    - **Phase and cycle,** for example "Work 3 of 10".
    - **Phase timer,** large: the time left in the phase.
-   - **Heart rate:** live bpm, the current zone and the phase's target zone.
+   - **Heart rate,** in three parts:
+     - **Current:** live bpm and the zone it's in, for example "128 bpm" and "Zone 3 — Moderate".
+     - **Heart rate bar,** on a fixed scale for the whole workout: the full bar is the work phase's target bpm plus 20% (for example 132 → 158). A green diamond marks the current phase's target and moves when the phase changes. The fill runs from the left edge to the current heart rate: red below the diamond, green at or above it.
+     - **Target:** the phase's target in the same format, for example "132 bpm" and "Zone 4 — Hard".
    - **Timer state,** shown clearly when the timer isn't counting: "Waiting for Zone 4" before heart rate first reaches the target in a phase, and "Paused — below target" after it drops back out, and "Paused — no heart rate" while there's no usable reading. In the cool-down, whose timer never pauses, "Below target heart rate" when heart rate is under Zone 1.
 
 7. **Sounds and vibration cue the workout,** so the user doesn't have to watch the screen. Sounds are generated in code with the Web Audio API, so there are no sound files. Vibration uses `navigator.vibrate()`. Proposed cues:
@@ -65,21 +68,24 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
    | Any button or menu item tap | A short, subtle click | None |
 
    - **When the below-target alarm sounds.** The app keeps the last several seconds of heart rate readings, so it can tell whether heart rate is climbing. The rules apply to every phase except the cool-down, which never sounds it:
-     - **Before reaching the target in a phase** ("Waiting for Zone 4"): no alarm in the phase's first 5 s. After that, no alarm while heart rate is climbing toward the target; the alarm sounds only when it stalls or falls. Someone pushing toward the target isn't nagged; someone not trying is.
-     - **After reaching the target, then dropping below it** ("Paused — below target"): the alarm sounds immediately, with no grace and whether or not heart rate is climbing.
-     - **Repeat:** while the conditions hold, the alarm repeats every 2 s. A starting value, to be tuned on the bike.
+     - **Warm-up's first 60 s:** no alarm at all, whatever heart rate does, so there's time to tap the workout and get on the bike. After that, the rules below apply as in every other phase.
+     - **Before reaching the target in a phase** ("Waiting for Zone 4"): no alarm in the phase's first 5 s (60 s in the warm-up, above). After that, no alarm while heart rate is climbing toward the target; the alarm sounds only when it stalls or falls. Someone pushing toward the target isn't nagged; someone not trying is.
+     - **After reaching the target, then dropping below it** ("Paused — below target"): the alarm sounds immediately (except in the warm-up's first 60 s), with no grace and whether or not heart rate is climbing.
+     - **Repeat:** while the conditions hold, the alarm repeats every 1 s. A starting value, to be tuned on the bike.
      - **Climbing** means the smoothed heart rate rose by at least 2 bpm over the last 5 s, so normal 1–2 bpm jitter doesn't count. These numbers are a starting point, to be tuned on the bike.
    - **Workout complete fanfare.** A short, original chiptune-style "level clear", about 1.5 s, not copied from any existing tune: four quick notes (about 0.1 s each) climbing a major chord, C–E–G–high C, in a retro square-wave tone; a pause of about 0.1 s; then a bright three-note major chord held for about 0.8 s with a slight wobble, fading out.
    - **Button click.** Every button or menu item tap plays a short, subtle click. This also proves sound works before a workout starts.
    - **Audio unlock.** Chrome only allows sound after a tap on the page. The first button tap (normally Connect) covers this.
    - **Volume.** Sounds play at the phone's media volume.
 
-8. **What this ADR implements.**
+8. **Version number: `0.` plus two digits,** for example `0.04`, still kept in `docs/js/version.js` and bumped once per pushed batch of app changes. Four digits were more than needed. This build is `0.04`.
+
+9. **What this ADR implements.**
    - **Workout data:** `docs/js/workouts.js` with the nine workouts of item 4.
    - **Select workout screen:** the redirects in item 5, then the workouts as buttons. Tapping one starts it.
    - **Running workout screen:** as in item 6, with the phase timers of item 2 and the wake lock.
    - **Sounds module:** the cues in item 7, including the button click on every button in the app.
-   - **Version bump** in `docs/js/version.js`.
+   - **Version** `0.04` in `docs/js/version.js`, in the new format (item 8).
 
 ## Alternatives considered
 
@@ -87,6 +93,7 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
 - **Targets in bpm per workout.** Rejected: each workout would need a copy per profile, and changing profile wouldn't carry over.
 - **A "target reached" cue** (a short beep and a tap of vibration when heart rate reaches the target and the timer starts counting). Not for now: the phase-change cue already says a new phase has started, and the below-target alarm says when the user isn't getting there. Could be added later.
 - **Countdown beeps for the last 3 s of each phase.** Not for now: with 30 s phases it would be noisy. Easy to add later.
+- **A heart rate bar scaled to each phase's target** (0 to twice the target, target in the middle; or target ± 40 bpm). Rejected: the scale would jump at every phase change. A fixed scale with a moving target marker keeps the bar steady.
 - **Sound files instead of generated tones.** Not needed for beeps and buzzes. Files could be added later for something like a voice saying "go."
 
 ## Consequences
@@ -99,6 +106,7 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
 
 ### Supersedes
 - [2026-11-06-c](2026-11-06-c-app-architecture-and-hosting.md) — "Screens while disconnected," Select workout part only: Select workout can no longer be opened without a connection (or without a profile); the app redirects instead (item 5). Select profile can still be opened without a connection.
+- [2026-11-06-c](2026-11-06-c-app-architecture-and-hosting.md) — item 10, version format only: `0.` plus two digits instead of four (item 8).
 
 ### Superseded by
 - None.

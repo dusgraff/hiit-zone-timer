@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Heart Rate HIIT Pacer</title>
+  <title>HIIT Zone Timer</title>
   <link rel="stylesheet" href="css/app.css">
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
   <header class="titlebar">
-    <span class="app-name">HR HIIT Pacer<span id="app-version"></span></span>
+    <span class="app-name">HIIT Zone Timer<span id="app-version"></span></span>
     <button id="menu-button" class="menu-button" aria-label="Menu" aria-expanded="false" aria-controls="menu">&#9776;</button>
     <nav id="menu" class="menu" hidden>
       <a href="#monitor">Monitor</a>
@@ -80,7 +80,9 @@
         <p id="workout-timer" class="workout-timer">0:00</p>
         <p class="workout-hr"><span id="workout-bpm">--</span> <span class="muted">bpm</span></p>
         <p id="workout-zone" class="zone"></p>
-        <p id="workout-target" class="muted"></p>
+        <div class="hr-bar" aria-hidden="true"><div id="hr-fill" class="hr-fill"></div><div id="hr-marker" class="hr-marker"></div></div>
+        <p class="workout-hr"><span id="workout-target-bpm"></span> <span class="muted">bpm</span></p>
+        <p id="workout-target" class="zone target"></p>
         <p id="workout-state" class="workout-state"></p>
       </div>
 
