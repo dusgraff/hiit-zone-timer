@@ -14,6 +14,6 @@ Read these in order to go through the specs like a book.
 
 1. [adr-structure.md](adr-structure.md) — where decisions live: the `specs-ADRs/` folders, how ADRs are named and dated, their lifecycle, and the link rules.
 2. [adr-process.md](adr-process.md) — how a decision gets made: from draft through spec update and code, statuses, supersession, loose ends, the ADR template, and how specs are organized.
-3. [app-architecture.md](app-architecture.md) — how the app is built and hosted: GitHub Pages from `docs/`, the single page, screens and menu, the guided flow, Bluetooth connection and dropped-connection handling, screen sleep, data and storage, prototype pages.
+3. [app-architecture.md](app-architecture.md) — how the app is built and hosted: GitHub Pages from `docs/`, the single page, screens and menu, the guided flow, the look (colors), Bluetooth connection and dropped-connection handling, screen sleep, data and storage, prototype pages.
 4. [profiles.md](profiles.md) — the heart rate zone model (Zones 0–5) and the three fixed fitness profiles (Sedentary, Average, Athletic) with their bpm ranges, and how to use them.
 5. [workouts.md](workouts.md) — running a workout: phases and heart-rate-gated timers, the nine pre-programmed workouts, the Select workout and Running workout screens, sounds, vibration and the below-target alarm.

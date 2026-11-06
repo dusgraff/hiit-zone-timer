@@ -1,8 +1,8 @@
 # App architecture
 
-How the app is built, hosted and laid out: the single page, its screens and navigation, the Bluetooth connection, screen sleep, data and storage. What happens inside a workout is in [workouts.md](workouts.md).
+How the app is built, hosted and laid out: the single page, its screens and navigation, its look, the Bluetooth connection, screen sleep, data and storage. What happens inside a workout is in [workouts.md](workouts.md).
 
-Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md), with the guided flow and the Monitor and Select profile screens updated by [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md), and screens while disconnected and the workout screens updated by [ADR 2026-11-06-e](../specs-ADRs/archive/2026/11/2026-11-06-e-running-a-workout.md).
+Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-architecture-and-hosting.md), with the guided flow and the Monitor and Select profile screens updated by [ADR 2026-11-06-d](../specs-ADRs/archive/2026/11/2026-11-06-d-fitness-profiles.md), screens while disconnected and the workout screens updated by [ADR 2026-11-06-e](../specs-ADRs/archive/2026/11/2026-11-06-e-running-a-workout.md), and the look set by [ADR 2026-11-06-f](../specs-ADRs/archive/2026/11/2026-11-06-f-color-scheme.md).
 
 ## Hosting and folder layout
 
@@ -42,6 +42,26 @@ A menu bar at the top shows the app name, the version number and a hamburger men
 - **Guided flow.** A normal session never needs the menu: connect on Monitor and tap **Select profile**; choose a profile, check its zones and tap **Select workout**; choosing a workout opens the running workout and starts it.
 - **Screens while disconnected.** Select profile can be opened without a connection. Select workout can't: without a connection the app goes to Monitor, and without a profile to Select profile.
 - **Leaving a running workout** for any other screen ends it ([workouts](workouts.md#leaving-and-returning)).
+
+## Look
+
+A dark navy theme with yellow buttons. Decided in [ADR 2026-11-06-f](../specs-ADRs/archive/2026/11/2026-11-06-f-color-scheme.md). The colors live in `docs/css/app.css`; changing them means a new ADR.
+
+| Use | Color |
+|---|---|
+| Page background | `#020713` |
+| Raised surfaces: title bar, menu, choice buttons (profiles, workouts) | `#061024` |
+| Borders, selected choice background, heart rate bar track | `#0e2142` |
+| Main text | `#e8eef8` |
+| Secondary text (labels, hints) | `#9aabc8` |
+| Yellow: buttons, selection, recovery, yellow timer states | `#f5c518` |
+| Reconnecting banner (white text) | `#c62828` |
+
+- **Primary buttons** (Connect, Select profile, Select workout, the end screen's button): yellow with bold dark navy text (`#020713`).
+- **Secondary buttons** (Disconnect): a yellow outline with yellow text on a transparent background.
+- **Selection:** the selected profile and the active menu item are marked in yellow.
+- **One yellow throughout.** Recovery and the yellow timer states use the button yellow, so the scheme matches.
+- **Workout colors keep their meaning,** separate from the theme: phase colors, the heart rate bar's red and green, and the timer states ([workouts](workouts.md#running-workout-screen)).
 
 ## Bluetooth connection
 

@@ -7,8 +7,8 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: system-ui, sans-serif;
-  background: #111;
-  color: #eee;
+  background: #020713;
+  color: #e8eef8;
 }
 
 /* Title bar and menu */
@@ -20,8 +20,8 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0.6rem 1rem;
-  background: #1c1c1c;
-  border-bottom: 1px solid #333;
+  background: #061024;
+  border-bottom: 1px solid #0e2142;
   z-index: 10;
 }
 
@@ -33,7 +33,7 @@ body {
   padding: 0.3rem 0.6rem;
   background: none;
   border: none;
-  color: #eee;
+  color: #e8eef8;
 }
 
 .menu {
@@ -41,8 +41,8 @@ body {
   top: 100%;
   right: 0;
   min-width: 12rem;
-  background: #222;
-  border: 1px solid #333;
+  background: #061024;
+  border: 1px solid #0e2142;
   border-top: none;
 }
 
@@ -50,18 +50,18 @@ body {
 .menu a {
   display: block;
   padding: 0.9rem 1rem;
-  color: #eee;
+  color: #e8eef8;
   text-decoration: none;
-  border-top: 1px solid #333;
+  border-top: 1px solid #0e2142;
 }
 
-.menu a.active { color: #f66; }
+.menu a.active { color: #f5c518; }
 
 /* Reconnecting banner */
 
 .banner {
   padding: 0.6rem 1rem;
-  background: #a60;
+  background: #c62828;
   color: #fff;
   text-align: center;
 }
@@ -86,7 +86,7 @@ main { padding: 1rem; }
 
 .screen-footer { margin-top: auto; padding-top: 1rem; width: 100%; }
 
-.muted { color: #999; }
+.muted { color: #9aabc8; }
 .error { color: #f77; margin: 0; }
 
 .bpm { font-size: 6rem; font-weight: bold; margin: 1rem 0 0; }
@@ -107,19 +107,19 @@ main { padding: 1rem; }
 button.choice {
   font-size: 1.2rem;
   padding: 1rem;
-  border: 2px solid #444;
+  border: 2px solid #0e2142;
   border-radius: 0.5rem;
-  background: #222;
-  color: #eee;
+  background: #061024;
+  color: #e8eef8;
 }
 
-button.choice.selected { border-color: #d33; background: #3a1a1a; }
+button.choice.selected { border-color: #f5c518; background: #0e2142; }
 
 .screen h2 { font-size: 1.3rem; margin: 0 0 0.75rem; }
 
 table.zones { border-collapse: collapse; font-size: 1.05rem; }
-table.zones th, table.zones td { padding: 0.45rem 1rem; text-align: left; border-bottom: 1px solid #333; }
-table.zones th { color: #999; font-weight: normal; }
+table.zones th, table.zones td { padding: 0.45rem 1rem; text-align: left; border-bottom: 1px solid #0e2142; }
+table.zones th { color: #9aabc8; font-weight: normal; }
 table.zones td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Buttons */
@@ -129,12 +129,12 @@ button.primary, button.secondary {
   padding: 0.9rem 1.6rem;
   border: none;
   border-radius: 0.5rem;
-  color: #fff;
+  color: #020713;
   margin: 0.5rem;
 }
 
-button.primary { background: #d33; }
-button.secondary { background: #444; }
+button.primary { background: #f5c518; font-weight: bold; }
+button.secondary { background: transparent; color: #f5c518; border: 2px solid #f5c518; }
 .screen-footer button.primary { width: 100%; max-width: 24rem; }
 button:disabled { opacity: 0.4; }
 
@@ -157,7 +157,7 @@ button:disabled { opacity: 0.4; }
 .segment { flex-basis: 0; }
 .segment.warmup, .segment.cooldown { background: #6cc6ec; }
 .segment.work { background: #d33; }
-.segment.recovery { background: #e8c21a; }
+.segment.recovery { background: #f5c518; }
 
 .progress-dot {
   position: absolute;
@@ -167,7 +167,7 @@ button:disabled { opacity: 0.4; }
   height: 1.3rem;
   border-radius: 50%;
   background: #fff;
-  border: 3px solid #111;
+  border: 3px solid #020713;
   transform: translate(-50%, -50%);
 }
 
@@ -176,7 +176,7 @@ button:disabled { opacity: 0.4; }
 .phase { font-size: 1.8rem; font-weight: bold; margin: 0.5rem 0 0; }
 .phase.warmup, .phase.cooldown { color: #6cc6ec; }
 .phase.work { color: #f55; }
-.phase.recovery { color: #e8c21a; }
+.phase.recovery { color: #f5c518; }
 
 .workout-timer {
   font-size: 6rem;
@@ -184,12 +184,12 @@ button:disabled { opacity: 0.4; }
   margin: 0.25rem 0;
   font-variant-numeric: tabular-nums;
 }
-.workout-timer.stopped { color: #777; }
+.workout-timer.stopped { color: #5d6f8f; }
 
 .workout-hr { font-size: 2.2rem; font-weight: bold; margin: 0.5rem 0 0; }
 
 .workout-state { font-size: 1.3rem; font-weight: bold; min-height: 1.6em; margin: 0.75rem 0; }
-.workout-state.waiting, .workout-state.no-hr { color: #e8c21a; }
+.workout-state.waiting, .workout-state.no-hr { color: #f5c518; }
 .workout-state.paused { color: #f55; }
 .workout-state.below { color: #6cc6ec; }
 
@@ -201,7 +201,7 @@ button:disabled { opacity: 0.4; }
   max-width: 24rem;
   height: 1.2rem;
   margin: 0.9rem 0 0.4rem;
-  background: #2a2a2a;
+  background: #0e2142;
   border-radius: 0.3rem;
 }
 
@@ -219,10 +219,10 @@ button:disabled { opacity: 0.4; }
   width: 1.1rem;
   height: 1.1rem;
   background: #2c2;
-  border: 2px solid #111;
+  border: 2px solid #020713;
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.zone.target { font-size: 1.1rem; color: #aaa; margin-top: 0; }
+.zone.target { font-size: 1.1rem; color: #9aabc8; margin-top: 0; }
 
 #workout-running { width: 100%; display: flex; flex-direction: column; align-items: center; }
