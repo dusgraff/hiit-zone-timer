@@ -1,6 +1,6 @@
 # 2026-11-06-c. App architecture and hosting: single page, connection and screen-sleep handling, GitHub Pages
 
-Status: implementing
+Status: implemented
 
 ## Context
 
