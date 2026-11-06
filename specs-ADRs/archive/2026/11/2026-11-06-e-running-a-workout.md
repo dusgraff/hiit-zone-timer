@@ -78,14 +78,14 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
    - **Audio unlock.** Chrome only allows sound after a tap on the page. The first button tap (normally Connect) covers this.
    - **Volume.** Sounds play at the phone's media volume.
 
-8. **Version number: `0.` plus two digits,** for example `0.04`, still kept in `docs/js/version.js` and bumped once per pushed batch of app changes. Four digits were more than needed. This build is `0.04`.
+8. **Version number: a major number, a dot and two digits,** for example `1.00`, still kept in `docs/js/version.js`. Claude bumps the two digits once per pushed batch of app changes (`1.00` → `1.01`); the major number changes only when the user says so. Four digits were more than needed. Builds during this ADR went `0.04`, then `1.00`, the first working version.
 
 9. **What this ADR implements.**
    - **Workout data:** `docs/js/workouts.js` with the nine workouts of item 4.
    - **Select workout screen:** the redirects in item 5, then the workouts as buttons. Tapping one starts it.
    - **Running workout screen:** as in item 6, with the phase timers of item 2 and the wake lock.
    - **Sounds module:** the cues in item 7, including the button click on every button in the app.
-   - **Version** `0.04` in `docs/js/version.js`, in the new format (item 8).
+   - **Version** `1.00` in `docs/js/version.js`, in the new format (item 8).
 
 ## Alternatives considered
 
@@ -106,7 +106,7 @@ The first workout comes from the user's air-bike plan: a 2:00 warm-up, then 30 s
 
 ### Supersedes
 - [2026-11-06-c](2026-11-06-c-app-architecture-and-hosting.md) — "Screens while disconnected," Select workout part only: Select workout can no longer be opened without a connection (or without a profile); the app redirects instead (item 5). Select profile can still be opened without a connection.
-- [2026-11-06-c](2026-11-06-c-app-architecture-and-hosting.md) — item 10, version format only: `0.` plus two digits instead of four (item 8).
+- [2026-11-06-c](2026-11-06-c-app-architecture-and-hosting.md) — item 10, version format only: a major number and two digits (`1.00`) instead of `0.` and four digits (item 8).
 
 ### Superseded by
 - None.

@@ -96,7 +96,7 @@ During a workout the phone sits untouched for long stretches. If the screen turn
 ### Superseded by
 - [2026-11-06-d](2026-11-06-d-fitness-profiles.md) — guided flow step 2 only (choosing a profile shows its zones and a Select workout button, instead of going straight to Select workout), as of 2026-11-06.
 - [2026-11-06-e](2026-11-06-e-running-a-workout.md) — "Screens while disconnected," Select workout part only (Select workout now redirects to Monitor without a connection, or to Select profile without a profile, instead of opening), as of 2026-11-06.
-- [2026-11-06-e](2026-11-06-e-running-a-workout.md) — item 10, version format only (`0.` plus two digits instead of four), as of 2026-11-06.
+- [2026-11-06-e](2026-11-06-e-running-a-workout.md) — item 10, version format only (a major number and two digits, `1.00`, instead of `0.` and four digits), as of 2026-11-06.
 
 ## Loose ends
 
