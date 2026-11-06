@@ -1,0 +1,105 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+/* Title bar and menu */
+
+.titlebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: #1c1c1c;
+  border-bottom: 1px solid #333;
+  z-index: 10;
+}
+
+.app-name { font-weight: bold; font-size: 1.1rem; }
+
+.menu-button {
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.3rem 0.6rem;
+  background: none;
+  border: none;
+  color: #eee;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 12rem;
+  background: #222;
+  border: 1px solid #333;
+  border-top: none;
+}
+
+.menu[hidden] { display: none; }
+
+.menu a {
+  display: block;
+  padding: 0.9rem 1rem;
+  color: #eee;
+  text-decoration: none;
+  border-top: 1px solid #333;
+}
+
+.menu a.active { color: #f66; }
+
+/* Reconnecting banner */
+
+.banner {
+  padding: 0.6rem 1rem;
+  background: #a60;
+  color: #fff;
+  text-align: center;
+}
+
+/* Screens */
+
+main { padding: 1rem; }
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: calc(100vh - 6rem);
+}
+
+.screen[hidden] { display: none; }
+
+.screen h1 { font-size: 1.4rem; margin: 0.5rem 0 1rem; }
+
+.screen-footer { margin-top: auto; padding-top: 2rem; width: 100%; }
+
+.muted { color: #999; }
+.error { color: #f77; margin: 0; }
+
+.bpm { font-size: 6rem; font-weight: bold; margin: 1rem 0 0; }
+.bpm + .muted { margin-top: 0; }
+
+/* Buttons */
+
+button.primary, button.secondary {
+  font-size: 1.2rem;
+  padding: 0.9rem 1.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  margin: 0.5rem;
+}
+
+button.primary { background: #d33; }
+button.secondary { background: #444; }
+.screen-footer button.primary { width: 100%; max-width: 24rem; }
+button:disabled { opacity: 0.4; }

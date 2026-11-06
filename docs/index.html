@@ -4,31 +4,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Heart Rate HIIT Pacer</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, sans-serif;
-      background: #111;
-      color: #eee;
-      text-align: center;
-    }
-    p { color: #999; }
-  </style>
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
+  <header class="titlebar">
+    <span class="app-name">HR HIIT Pacer</span>
+    <button id="menu-button" class="menu-button" aria-label="Menu" aria-expanded="false" aria-controls="menu">&#9776;</button>
+    <nav id="menu" class="menu" hidden>
+      <a href="#monitor">Monitor</a>
+      <a href="#profile">Select profile</a>
+      <a href="#select-workout">Select workout</a>
+    </nav>
+  </header>
+
+  <div id="reconnecting-banner" class="banner" hidden>Connection lost. Reconnecting&hellip;</div>
+
   <main>
-    <h1>Heart Rate HIIT Pacer</h1>
-    <p>Placeholder page. Hosting works; the app is coming soon.</p>
-    <p id="bt"></p>
+    <section id="screen-monitor" class="screen" data-screen="monitor" hidden>
+      <h1>Monitor</h1>
+      <p id="monitor-error" class="error"></p>
+
+      <div id="monitor-disconnected">
+        <p id="monitor-status" class="muted">Not connected.</p>
+        <button id="connect-button" class="primary">Connect</button>
+      </div>
+
+      <div id="monitor-connected" hidden>
+        <p id="monitor-device" class="muted"></p>
+        <p id="monitor-bpm" class="bpm">--</p>
+        <p class="muted">bpm</p>
+        <p id="monitor-detail" class="muted"></p>
+        <button id="disconnect-button" class="secondary">Disconnect</button>
+      </div>
+
+      <div class="screen-footer">
+        <button id="select-profile-button" class="primary" hidden>Select profile</button>
+      </div>
+    </section>
+
+    <section id="screen-profile" class="screen" data-screen="profile" hidden>
+      <h1>Select profile</h1>
+      <p class="muted">Not implemented.</p>
+    </section>
+
+    <section id="screen-select-workout" class="screen" data-screen="select-workout" hidden>
+      <h1>Select workout</h1>
+      <p class="muted">Not implemented.</p>
+    </section>
   </main>
-  <script>
-    document.getElementById('bt').textContent =
-      'Web Bluetooth: ' + ('bluetooth' in navigator ? 'available' : 'not available') +
-      ' · Secure context: ' + (window.isSecureContext ? 'yes' : 'no');
-  </script>
 </body>
 </html>

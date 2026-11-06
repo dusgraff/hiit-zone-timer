@@ -11,7 +11,7 @@ A browser-based tool for pacing heart-rate-driven HIIT workouts. Detailed specs 
 
 ## What it does
 
-The user programs a workout, then runs it with live heart rate from the monitor.
+The user selects a fitness profile and one of the pre-programmed workouts, then runs it with live heart rate from the monitor. Profiles and workouts are written into the app's files; there's no in-app editor.
 
 - **Warm-up:** a target heart rate and a time frame.
 - **Exercise cycles:** after the warm-up, the workout moves into the exercise cycles. Time in a cycle only counts while heart rate is at or above that cycle's target heart rate.
