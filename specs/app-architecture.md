@@ -27,7 +27,9 @@ Decided in [ADR 2026-11-06-c](../specs-ADRs/archive/2026/11/2026-11-06-c-app-arc
 
 ## Screens and menu
 
-A menu bar at the top shows the app name and a hamburger menu.
+A menu bar at the top shows the app name, the version number and a hamburger menu.
+
+- **Version number.** Shown after the app name with a dash, for example `HR HIIT Pacer - 0.0001`. The format is `0.` plus four digits, defined once in `docs/js/version.js`. It's incremented with every change to the app's files in `docs/` that will be pushed, so the user can tell when a new build has reached the phone (GitHub Pages takes a little while to publish, and phones may show a cached copy).
 
 | Screen | In the menu | What it does |
 |---|---|---|

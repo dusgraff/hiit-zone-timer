@@ -5,6 +5,9 @@ import { heartRate, STATE } from './bluetooth.js';
 import { startRouter, goTo } from './router.js';
 import { setUpMenu } from './menu.js';
 import { setUpMonitor } from './monitor.js';
+import { VERSION } from './version.js';
+
+document.getElementById('app-version').textContent = ' - ' + VERSION;
 
 setUpMenu();
 setUpMonitor();

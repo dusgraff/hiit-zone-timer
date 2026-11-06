@@ -52,8 +52,9 @@ During a workout the phone sits untouched for long stretches. If the screen turn
    - **The app lives in `docs/`.** Its HTML, JS and CSS go there, and nothing else in the repo is published. The folder is named `docs/` only because GitHub Pages requires that name; it holds the app, not documentation. Specs live in `specs/` and ADRs in `specs-ADRs/`.
    - **GitHub Pages serves it,** using "Deploy from a branch" with `main` and `/docs`. Every push to `main` publishes the app over HTTPS at the repo's Pages address. `docs/index.html` is the app's entry page.
    - **Paths inside the app are relative** (`app.js`, not `/app.js`), because the site is served from the repo's subpath, not the domain root.
-10. **What this ADR implements.** The code written under this ADR builds the app's shell and its first real screen:
-    - **Title bar and menu:** the menu bar with the app name and the hamburger menu, switching screens through hash navigation.
+10. **Version number in the title bar.** The title bar shows the app name followed by a dash and the version, for example `HR HIIT Pacer - 0.0001`. The version is `0.` plus a four-digit number, kept in one JS module (`docs/js/version.js`). Claude increments it with every change to the app's files in `docs/` that will be pushed. GitHub Pages takes a little while to publish a push, and phones may show a cached copy, so the version shows which build is actually running.
+11. **What this ADR implements.** The code written under this ADR builds the app's shell and its first real screen:
+    - **Title bar and menu:** the menu bar with the app name, the version number and the hamburger menu, switching screens through hash navigation.
     - **Monitor screen, fully working:** Connect (device picker), connection status, live heart rate and stats, Disconnect, the one-attempt automatic reconnect, opening on Monitor and returning to it when the connection is lost, and the Select profile button that appears once connected.
     - **Select profile and Select workout:** menu entries that open a placeholder screen saying "Not implemented."
     - **Left for later ADRs:** the running workout screen, profile and workout data, workout logic and the wake lock (which is only held during a workout). That includes what happens when the user leaves the running workout screen mid-workout, through the menu or the back button. It will be decided once the app is working and can be tried.
@@ -72,6 +73,7 @@ During a workout the phone sits untouched for long stretches. If the screen turn
 - **Supporting background use (phone locked, or another app open) now.** Deferred: it would need testing how Chrome on Android throttles or freezes hidden pages and how that affects Bluetooth, and possibly a different timing design. Getting the core app working comes first. It can be taken up in a later ADR.
 - **Publishing from the repo root.** Simplest Pages setup, but it would publish specs, ADRs and all other project files alongside the app. Rejected.
 - **Publishing from `app/` with a GitHub Actions workflow.** Pages' branch deploy only offers the root or `/docs`, so any other folder needs an Actions workflow. Rejected: `docs/` gets the same separation with no workflow to maintain. The cost is a folder name that doesn't describe its contents, which the folder's index notes.
+- **A version generated automatically (for example, from the git commit).** That would need a build step or a GitHub Actions workflow. A hand-bumped number in one file is enough.
 - **A build tool (Vite or similar) with a `src/` to `dist/` build.** Not needed for an app this size, and it would add tooling and a deploy step.
 - **Deleting each prototype page once the app covers its feature.** Rejected: the prototypes stay useful as isolated tests until the app is working, and the app isn't expected to change much after that.
 
@@ -83,6 +85,7 @@ During a workout the phone sits untouched for long stretches. If the screen turn
 - **The app must be served over HTTP.** Chrome won't load modules from a file opened directly from disk (`file://`). Local testing needs a local server, such as VS Code's Live Server extension or `python -m http.server` run in `docs/`. Web Bluetooth already treats `localhost` as secure, so it works there.
 - **Everything in `docs/` is public.** That includes prototype pages and the folder's TLDR files (`CLAUDE.md`, `.tldr.md`), which only hold index text. Nothing private belongs there.
 - **Pushing to `main` deploys.** There's no separate release step; a push is a release.
+- **The version must be bumped by hand.** Nothing bumps it automatically, so a push of app changes without a bump shows the same version as before. The rule lives in `docs/CLAUDE.md` so it's in context whenever the app is edited.
 - **Specs change.** A new app-architecture spec is added to `specs/`, covering hosting and folder layout, the single page, screens and menu, hash navigation, script loading, disconnect handling, wake lock, foreground-only use, pre-programmed profiles and workouts with no browser storage, and prototype pages. `specs/README.md` drops its "app specs not yet written" note for this area.
 
 ## Supersession
