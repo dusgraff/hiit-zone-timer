@@ -1,6 +1,6 @@
 # 2026-11-06-d. Fitness profiles: three fixed heart rate zone sets
 
-Status: implementing
+Status: implemented
 
 ## Context
 
