@@ -15,3 +15,7 @@ The user programs a workout, then runs it with live heart rate from the monitor.
 
 - **Warm-up:** a target heart rate and a time frame.
 - **Exercise cycles:** after the warm-up, the workout moves into the exercise cycles. Time in a cycle only counts while heart rate is at or above that cycle's target heart rate.
+
+## Specs and decisions
+
+`specs/` is the authoritative copy of all current specifications. Start from [specs/README.md](specs/README.md). Design changes go through the ADR process in [specs/adr-process.md](specs/adr-process.md); ADRs live in `specs-ADRs/` as set out in [specs/adr-structure.md](specs/adr-structure.md).
